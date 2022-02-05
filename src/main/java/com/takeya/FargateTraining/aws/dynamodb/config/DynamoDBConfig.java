@@ -1,6 +1,10 @@
 package com.takeya.FargateTraining.aws.dynamodb.config;
 
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.PredefinedClientConfigurations;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.retry.PredefinedRetryPolicies;
+import com.amazonaws.retry.RetryPolicy;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -9,6 +13,8 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.PropertiesCredentials;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import lombok.NoArgsConstructor;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -33,11 +39,31 @@ public class DynamoDBConfig {
     }
 
     // com.amazonaws
-    public static DynamoDBMapper createDynanmoDBMapper() {
-        AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder
+    public static DynamoDBMapper createDynamoDBMapper() {
+
+        final ClientConfiguration config = new ClientConfiguration()
+                .withConnectionTimeout(ClientConfiguration.DEFAULT_CONNECTION_TIMEOUT)
+                .withClientExecutionTimeout(ClientConfiguration.DEFAULT_CLIENT_EXECUTION_TIMEOUT)
+                .withRequestTimeout(ClientConfiguration.DEFAULT_REQUEST_TIMEOUT)
+                .withSocketTimeout(ClientConfiguration.DEFAULT_SOCKET_TIMEOUT)
+                .withRetryPolicy(
+                        PredefinedRetryPolicies.getDynamoDBDefaultRetryPolicyWithCustomMaxRetries(
+                                PredefinedRetryPolicies.DEFAULT_MAX_ERROR_RETRY
+                        )
+                );
+
+        DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
+                .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+                .withTableNameOverride(DynamoDBMapperConfig.TableNameOverride.withTableNamePrefix("TK-"))
+                .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES)
+                .build();
+
+        AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder
                 .standard()
+                .withClientConfiguration(config)
                 .withRegion(Regions.AP_NORTHEAST_1)
                 .build();
-        return new DynamoDBMapper(amazonDynamoDB);
+
+        return new DynamoDBMapper(dynamoDB, mapperConfig);
     }
 }
