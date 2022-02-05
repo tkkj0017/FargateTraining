@@ -14,7 +14,7 @@ import java.util.Set;
 public class PutDynamoDB {
 
     private final DynamoDbClient client = DynamoDBConfig.createDynanmoDBClient();
-    private final DynamoDBMapper mapper = DynamoDBConfig.createDynanmoDBMapper();
+    private final DynamoDBMapper mapper = DynamoDBConfig.createDynamoDBMapper();
 
     public void put() {
         // software.amazon.awssdk

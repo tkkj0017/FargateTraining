@@ -3,6 +3,7 @@ package com.takeya.FargateTraining.presentation.controller;
 import com.takeya.FargateTraining.aws.dynamodb.GetDynamoDB;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -12,9 +13,9 @@ public class DynamoDBController {
     private GetDynamoDB getDynamoDB;
 
     @GetMapping("item")
-    public Object getItem() {
+    public Object getItem(@RequestParam String table, @RequestParam String key) {
 
-        final var response = getDynamoDB.getItem();
+        final var response = getDynamoDB.getItem(table, key);
         return response;
     }
 
