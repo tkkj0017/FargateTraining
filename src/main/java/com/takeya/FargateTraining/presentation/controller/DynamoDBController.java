@@ -20,8 +20,8 @@ public class DynamoDBController {
     }
 
     @GetMapping("/scan")
-    public Object scan() {
-        final var response = getDynamoDB.scan();
+    public Object scan(String table, String value) {
+        final var response = getDynamoDB.scan(table, value);
         return response;
     }
 
@@ -38,8 +38,8 @@ public class DynamoDBController {
     }
 
     @GetMapping("query")
-    public Object query() {
-        final var response = getDynamoDB.query();
+    public Object query(String table, String key1, String key2) {
+        final var response = getDynamoDB.query(table, key1, key2);
         return response;
     }
 
