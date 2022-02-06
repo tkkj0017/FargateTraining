@@ -15,6 +15,8 @@ import com.amazonaws.auth.PropertiesCredentials;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -23,9 +25,11 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.net.URI;
 
+@Configuration
 public class DynamoDBConfig {
 
     // software.amazon.awssdk
+    @Bean
     public static DynamoDbClient createDynanmoDBClient() {
         DynamoDbClient client = DynamoDbClient.builder()
                 .endpointOverride(URI.create("http://localhost:8000"))
@@ -39,6 +43,7 @@ public class DynamoDBConfig {
     }
 
     // com.amazonaws
+    @Bean
     public static DynamoDBMapper createDynamoDBMapper() {
 
         final ClientConfiguration config = new ClientConfiguration()
