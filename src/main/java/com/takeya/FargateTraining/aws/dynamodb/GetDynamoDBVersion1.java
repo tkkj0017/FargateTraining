@@ -15,10 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GetDynamoDB {
-
-//    private final DynamoDbClient client = DynamoDBConfig.createDynanmoDBClient();
-//    private final DynamoDBMapper mapper = DynamoDBConfig.createDynamoDBMapper();
+public class GetDynamoDBVersion1 {
 
     @Autowired
     private DynamoDBMapper mapper;
@@ -27,10 +24,6 @@ public class GetDynamoDB {
     private DynamoDbClient client;
 
     public Object getItem(String table, String key) {
-        // software.amazon.awssdk
-
-
-        // ccom.amazonaws
         final var consistentReads = DynamoDBMapperConfig.builder()
                 .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT).build();
         final var item = mapper.load(SampleEntirty.class, key, consistentReads);

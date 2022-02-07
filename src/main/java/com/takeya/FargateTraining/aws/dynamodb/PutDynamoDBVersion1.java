@@ -12,10 +12,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PutDynamoDB {
-
-//    private final DynamoDBMapper mapper = DynamoDBConfig.createDynamoDBVersion1();
-//    private final DynamoDbClient client = DynamoDBConfig.createDynanmoDBVersion2();
+public class PutDynamoDBVersion1 {
 
     @Autowired
     private DynamoDBMapper mapper;
@@ -24,10 +21,6 @@ public class PutDynamoDB {
     private DynamoDbClient client;
 
     public void put() {
-        // software.amazon.awssdk
-
-
-        // com.amazonaws
         CatalogItem item = new CatalogItem();
         item.setId(102);
         item.setTitle("Book 102 Title");
