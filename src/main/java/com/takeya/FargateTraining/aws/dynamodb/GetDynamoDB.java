@@ -21,10 +21,10 @@ public class GetDynamoDB {
 //    private final DynamoDBMapper mapper = DynamoDBConfig.createDynamoDBMapper();
 
     @Autowired
-    private DynamoDbClient client;
+    private DynamoDBMapper mapper;
 
     @Autowired
-    private DynamoDBMapper mapper;
+    private DynamoDbClient client;
 
     public Object getItem(String table, String key) {
         // software.amazon.awssdk

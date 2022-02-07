@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import com.amazonaws.services.outposts.model.CatalogItem;
 import com.takeya.FargateTraining.aws.dynamodb.config.DynamoDBConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.util.Arrays;
@@ -13,8 +14,14 @@ import java.util.Set;
 
 public class PutDynamoDB {
 
-    private final DynamoDbClient client = DynamoDBConfig.createDynanmoDBClient();
-    private final DynamoDBMapper mapper = DynamoDBConfig.createDynamoDBMapper();
+//    private final DynamoDBMapper mapper = DynamoDBConfig.createDynamoDBVersion1();
+//    private final DynamoDbClient client = DynamoDBConfig.createDynanmoDBVersion2();
+
+    @Autowired
+    private DynamoDBMapper mapper;
+
+    @Autowired
+    private DynamoDbClient client;
 
     public void put() {
         // software.amazon.awssdk
