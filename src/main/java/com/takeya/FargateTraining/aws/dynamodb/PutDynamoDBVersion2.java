@@ -16,6 +16,24 @@ public class PutDynamoDBVersion2 {
     private DynamoDbClient client;
 
     public void put() {
-
+//        // Create a BatchWriteItemEnhancedRequest object
+//        BatchWriteItemEnhancedRequest batchWriteItemEnhancedRequest =
+//                BatchWriteItemEnhancedRequest.builder()
+//                        .writeBatches(
+//                                WriteBatch.builder(Customer.class)
+//                                        .mappedTableResource(mappedTable)
+//                                        .addPutItem(r -> r.item(record2))
+//                                        .addPutItem(r -> r.item(record3))
+//                                        .build())
+//                        .build();
+//
+//        // Add these two items to the table
+//        enhancedClient.batchWriteItem(batchWriteItemEnhancedRequest);
+//        System.out.println("done");
+//
+//        } catch (DynamoDbException e) {
+//            System.err.println(e.getMessage());
+//            System.exit(1);
+//        }
     }
 }
