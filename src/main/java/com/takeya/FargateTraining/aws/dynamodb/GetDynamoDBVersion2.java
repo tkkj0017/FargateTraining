@@ -66,13 +66,6 @@ public class GetDynamoDBVersion2 {
         while (scanResponse.hasLastEvaluatedKey() && limit - scanResponse.count() > 0) {
             limit -= scanResponse.count();
             var newItems = client.scan(request).items();
-
-//            items = Stream.concat(items.stream(), newItems.stream())
-//                    .collect(Collectors.toList());
-
-//            for(Map<String, AttributeValue> item : newItems){
-//                items.add(item);
-//            }
             items.addAll(newItems);
         }
         return items;
@@ -89,13 +82,6 @@ public class GetDynamoDBVersion2 {
         while (scanResponse.hasLastEvaluatedKey() && limit - scanResponse.count() > 0) {
             limit -= scanResponse.count();
             var newItems = client.scan(request).items();
-
-//            items = Stream.concat(items.stream(), newItems.stream())
-//                    .collect(Collectors.toList());
-
-//            for(Map<String, AttributeValue> item : newItems){
-//                items.add(item);
-//            }
             items.addAll(newItems);
         }
         return items;
@@ -113,13 +99,6 @@ public class GetDynamoDBVersion2 {
         while (scanResponse.hasLastEvaluatedKey() && limit - scanResponse.count() > 0) {
             limit -= scanResponse.count();
             var newItems = client.scan(request).items();
-
-//            items = Stream.concat(items.stream(), newItems.stream())
-//                    .collect(Collectors.toList());
-
-//            for(Map<String, AttributeValue> item : newItems){
-//                items.add(item);
-//            }
             items.addAll(newItems);
         }
         return items;
