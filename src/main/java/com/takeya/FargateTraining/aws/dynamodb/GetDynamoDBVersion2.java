@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GetDynamoDBVersion2 {
 
@@ -52,7 +53,7 @@ public class GetDynamoDBVersion2 {
         return Optional.ofNullable(null);
     }
 
-    public Object scan(String table, String value, String filter, Integer limit) {
+    public Object scan(String table, String filter, Integer limit) {
         final var request = ScanRequest.builder()
                 .tableName(table)
                 .filterExpression(filter)
@@ -64,23 +65,68 @@ public class GetDynamoDBVersion2 {
 
         while (scanResponse.hasLastEvaluatedKey() && limit - scanResponse.count() > 0) {
             limit -= scanResponse.count();
-            scanResponse = client.scan(request);
+            var newItems = client.scan(request).items();
 
-            // TODO
+//            items = Stream.concat(items.stream(), newItems.stream())
+//                    .collect(Collectors.toList());
+
+//            for(Map<String, AttributeValue> item : newItems){
+//                items.add(item);
+//            }
+            items.addAll(newItems);
         }
-
+        return items;
     }
 
-    public Object scanAll() {
-        return null;
+    public Object scanAll(String table, Integer limit) {
+        final var request = ScanRequest.builder()
+                .tableName(table)
+                .limit(limit)
+                .build();
+        var scanResponse = client.scan(request);
+        var items = scanResponse.items();
+
+        while (scanResponse.hasLastEvaluatedKey() && limit - scanResponse.count() > 0) {
+            limit -= scanResponse.count();
+            var newItems = client.scan(request).items();
+
+//            items = Stream.concat(items.stream(), newItems.stream())
+//                    .collect(Collectors.toList());
+
+//            for(Map<String, AttributeValue> item : newItems){
+//                items.add(item);
+//            }
+            items.addAll(newItems);
+        }
+        return items;
     }
 
-    public Object scanIndex() {
-        return null;
+    public Object scanIndex(String table, Map<String, AttributeValue> filter, String index, Integer limit) {
+        final var request = ScanRequest.builder()
+                .tableName(table)
+                .limit(limit)
+                .indexName(index)
+                .build();
+        var scanResponse = client.scan(request);
+        var items = scanResponse.items();
+
+        while (scanResponse.hasLastEvaluatedKey() && limit - scanResponse.count() > 0) {
+            limit -= scanResponse.count();
+            var newItems = client.scan(request).items();
+
+//            items = Stream.concat(items.stream(), newItems.stream())
+//                    .collect(Collectors.toList());
+
+//            for(Map<String, AttributeValue> item : newItems){
+//                items.add(item);
+//            }
+            items.addAll(newItems);
+        }
+        return items;
     }
 
-    public Object query(String table, String key1, String key2) {
-        return null;
+    public Object query(String table, Map<String, AttributeValue> filter,  Integer limit) {
+
     }
 
     public Object queryIndex() {
