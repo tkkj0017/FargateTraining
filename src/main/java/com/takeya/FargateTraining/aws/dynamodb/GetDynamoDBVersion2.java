@@ -14,13 +14,8 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GetDynamoDBVersion2 {
-
-    @Autowired
-    private DynamoDBMapper mapper;
 
     @Autowired
     private DynamoDbClient client;
@@ -53,11 +48,12 @@ public class GetDynamoDBVersion2 {
         return Optional.ofNullable(null);
     }
 
-    public Object scan(String table, String filter, Integer limit) {
+    public Object scan(String table, String filter, Integer limit, Map<String, AttributeValue> filterKeyValue) {
         final var request = ScanRequest.builder()
                 .tableName(table)
                 .filterExpression(filter)
                 .limit(limit)
+                .expressionAttributeValues(filterKeyValue)
                 .build();
 
         var scanResponse = client.scan(request);
@@ -102,13 +98,5 @@ public class GetDynamoDBVersion2 {
             items.addAll(newItems);
         }
         return items;
-    }
-
-    public Object query(String table, Map<String, AttributeValue> filter,  Integer limit) {
-
-    }
-
-    public Object queryIndex() {
-        return null;
     }
 }
