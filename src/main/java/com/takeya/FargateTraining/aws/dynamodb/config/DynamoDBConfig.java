@@ -30,37 +30,6 @@ import java.time.Duration;
 @Configuration
 public class DynamoDBConfig {
 
-    // com.amazonaws(v1)
-    @Bean
-    public static DynamoDBMapper createDynamoDBVersion1() {
-
-        final var config = new ClientConfiguration()
-                .withConnectionTimeout(ClientConfiguration.DEFAULT_CONNECTION_TIMEOUT)
-                .withClientExecutionTimeout(ClientConfiguration.DEFAULT_CLIENT_EXECUTION_TIMEOUT)
-                .withRequestTimeout(ClientConfiguration.DEFAULT_REQUEST_TIMEOUT)
-                .withSocketTimeout(ClientConfiguration.DEFAULT_SOCKET_TIMEOUT)
-                .withRetryPolicy(
-                        PredefinedRetryPolicies.getDynamoDBDefaultRetryPolicyWithCustomMaxRetries(
-                                PredefinedRetryPolicies.DEFAULT_MAX_ERROR_RETRY
-                        )
-                );
-
-        final var mapperConfig = DynamoDBMapperConfig.builder()
-                .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
-                .withTableNameOverride(DynamoDBMapperConfig.TableNameOverride.withTableNamePrefix("TK-"))
-                .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES)
-                .build();
-
-        final var dynamoDB = AmazonDynamoDBClientBuilder
-                .standard()
-                .withClientConfiguration(config)
-                .withRegion(Regions.AP_NORTHEAST_1)
-                .build();
-
-        return new DynamoDBMapper(dynamoDB, mapperConfig);
-    }
-
-    // software.amazon.awssdk(v2)
     @Bean
     public static DynamoDbClient createDynanmoDBVersion2() {
 
