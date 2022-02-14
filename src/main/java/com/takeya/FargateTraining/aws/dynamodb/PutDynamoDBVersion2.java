@@ -1,7 +1,7 @@
 package com.takeya.FargateTraining.aws.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
@@ -10,10 +10,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 
+@Service
 public class PutDynamoDBVersion2 {
-
-    @Autowired
-    private DynamoDBMapper mapper;
 
     @Autowired
     private DynamoDbClient client;
