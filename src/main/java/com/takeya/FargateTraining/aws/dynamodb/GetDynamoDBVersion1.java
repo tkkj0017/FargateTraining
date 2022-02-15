@@ -20,63 +20,61 @@ import java.util.Map;
 public class GetDynamoDBVersion1 {
 
     @Autowired
-    private DynamoDBMapper mapper;
-
-    @Autowired
     private DynamoDbClient client;
 
-    public Object getItem(String table, String key) {
-        final var consistentReads = DynamoDBMapperConfig.builder()
-                .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT).build();
-        final var item = mapper.load(SampleEntirty.class, key, consistentReads);
-        return item;
-    }
-
-    public Object scan(String table, String value) {
-        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        eav.put(":val1", new AttributeValue().withN(value));
-        eav.put(":val2", new AttributeValue().withS(table));
-
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("Price < :val1 and ProductCategory = :val2").withExpressionAttributeValues(eav);
-
-        List<Book> scanResult = mapper.scan(Book.class, scanExpression);
-
-        for (Book book : scanResult) {
-            System.out.println(book);
-        }
-
-        return scanResult;
-    }
-
-    public Object scanAll() {
-        return null;
-    }
-
-    public Object scanIndex() {
-        return null;
-    }
-
-    public Object query(String table, String key1, String key2) {
-        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        eav.put(":v1",new AttributeValue().withS(key1));
-        eav.put(":v2", new AttributeValue().withS(key2));
-        eav.put(":v3", new AttributeValue().withS(table));
-
-        DynamoDBQueryExpression<Book> queryExpression = new DynamoDBQueryExpression<Book>()
-                .withKeyConditionExpression("CategoryId = :v1 and CategoryName= :v2")
-                .withExpressionAttributeValues(eav);
-
-        List<Book> queryResult = mapper.query(Book.class, queryExpression);
-
-        for (Book book : queryResult) {
-            System.out.println(book);
-        }
-
-        return queryResult;
-    }
-
-    public Object queryIndex() {
-        return null;
-    }
+    // TODO
+//    public Object getItem(String table, String key) {
+//        final var consistentReads = DynamoDBMapperConfig.builder()
+//                .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT).build();
+//        final var item = mapper.load(SampleEntirty.class, key, consistentReads);
+//        return item;
+//    }
+//
+//    public Object scan(String table, String value) {
+//        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+//        eav.put(":val1", new AttributeValue().withN(value));
+//        eav.put(":val2", new AttributeValue().withS(table));
+//
+//        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+//                .withFilterExpression("Price < :val1 and ProductCategory = :val2").withExpressionAttributeValues(eav);
+//
+//        List<Book> scanResult = mapper.scan(Book.class, scanExpression);
+//
+//        for (Book book : scanResult) {
+//            System.out.println(book);
+//        }
+//
+//        return scanResult;
+//    }
+//
+//    public Object scanAll() {
+//        return null;
+//    }
+//
+//    public Object scanIndex() {
+//        return null;
+//    }
+//
+//    public Object query(String table, String key1, String key2) {
+//        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+//        eav.put(":v1",new AttributeValue().withS(key1));
+//        eav.put(":v2", new AttributeValue().withS(key2));
+//        eav.put(":v3", new AttributeValue().withS(table));
+//
+//        DynamoDBQueryExpression<Book> queryExpression = new DynamoDBQueryExpression<Book>()
+//                .withKeyConditionExpression("CategoryId = :v1 and CategoryName= :v2")
+//                .withExpressionAttributeValues(eav);
+//
+//        List<Book> queryResult = mapper.query(Book.class, queryExpression);
+//
+//        for (Book book : queryResult) {
+//            System.out.println(book);
+//        }
+//
+//        return queryResult;
+//    }
+//
+//    public Object queryIndex() {
+//        return null;
+//    }
 }
