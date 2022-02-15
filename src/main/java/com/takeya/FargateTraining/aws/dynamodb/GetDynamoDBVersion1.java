@@ -9,12 +9,14 @@ import com.takeya.FargateTraining.aws.dynamodb.config.DynamoDBConfig;
 import com.takeya.FargateTraining.aws.dynamodb.entity.Book;
 import com.takeya.FargateTraining.aws.dynamodb.entity.SampleEntirty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class GetDynamoDBVersion1 {
 
     @Autowired

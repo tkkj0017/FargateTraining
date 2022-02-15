@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.takeya.FargateTraining.aws.dynamodb.entity.Book;
 import com.takeya.FargateTraining.aws.dynamodb.entity.SampleEntirty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
@@ -14,7 +15,9 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+@Service
 public class GetDynamoDBVersion2 {
 
     @Autowired

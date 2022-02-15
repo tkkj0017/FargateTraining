@@ -1,6 +1,9 @@
 package com.takeya.FargateTraining.presentation.controller;
 
+import com.takeya.FargateTraining.aws.dynamodb.CreateTableLocal;
 import com.takeya.FargateTraining.aws.dynamodb.GetDynamoDBVersion1;
+import com.takeya.FargateTraining.aws.dynamodb.GetDynamoDBVersion2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("dynamodb")
 public class DynamoDBController {
 
+    @Autowired
     private GetDynamoDBVersion1 getDynamoDBVersion1;
+
+    @Autowired
+    private GetDynamoDBVersion2 getDynamoDBVersion2;
+
+    @Autowired
+    private CreateTableLocal createTableLocal;
 
     @GetMapping("item")
     public Object getItem(@RequestParam String table, @RequestParam String key) {
@@ -47,5 +57,10 @@ public class DynamoDBController {
     public Object queryIndex() {
         final var response = getDynamoDBVersion1.queryIndex();
         return response;
+    }
+
+    @GetMapping("create_table")
+    public void createTable() throws Exception {
+        createTableLocal.createTable();
     }
 }
